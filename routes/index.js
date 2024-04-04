@@ -60,7 +60,8 @@ router.get('/callback', async (req, res) => {
   const token = jwt.sign(user, JWT_SECRET);
 
   res.cookie('token', token);
-  res.redirect('/index.html'); // 跳轉回前端頁面
+  res.redirect(`/index.html?access_token=${access_token}`);
+  // res.redirect('/index.html'); // 跳轉回前端頁面
 });
 
 // JWT 驗證 middleware
@@ -86,9 +87,9 @@ router.get('/user', authenticateJWT, (req, res) => {
   res.json({ user: req.user }); // 返回驗證後的用戶資訊
 });
 
-router.get('/getGithubIssue', authenticateJWT, (req, res) => {
-  // 在這裡添加您的處理邏輯，例如發送 GitHub API 請求取得 issues 資料
-  res.json({ message: 'Authenticated successfully for getGithubIssue' });
-});
+// router.get('/getGithubIssue', authenticateJWT, (req, res) => {
+//   // 在這裡添加您的處理邏輯，例如發送 GitHub API 請求取得 issues 資料
+//   res.json({ message: 'Authenticated successfully for getGithubIssue' });
+// });
 
 module.exports = router;
